@@ -1,8 +1,8 @@
-export const data = [
+export const dataUsers = [
   {
     id: 0,
     celular: "1234567890",
-    nombre: "Juan Pérez",
+    nombre: "Yaszer Francisco Alvares Esquedo",
     responsabilidad: "Supervisor",
     municipio: "Ciudad X",
     seccion: "A",
@@ -18,7 +18,7 @@ export const data = [
   {
     id: 2,
     celular: "5555555555",
-    nombre: "Pedro Ramírez",
+    nombre: "Juan Ramírez",
     responsabilidad: "Gerente",
     municipio: "Ciudad Z",
     seccion: "C",
@@ -78,5 +78,35 @@ export const data = [
     responsabilidad: "Operario",
     municipio: "Ciudad X",
     seccion: "A",
+  },
+];
+
+export const dataMunicipios = [
+  {
+    id: 0,
+    nombre: "Ciudad X",
+  },
+  {
+    id: 1,
+    nombre: "Ciudad Y",
+  },
+  {
+    id: 2,
+    nombre: "Ciudad Z",
+  },
+];
+
+export const dataSeccion = [
+  {
+    id: 0,
+    nombre: "A",
+  },
+  {
+    id: 1,
+    nombre: "B",
+  },
+  {
+    id: 2,
+    nombre: "C",
   },
 ];

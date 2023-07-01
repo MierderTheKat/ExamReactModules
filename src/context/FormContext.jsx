@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { data } from "../data/usersData";
+import { dataUsers, dataMunicipios, dataSeccion } from "../data/filterData";
 
 export const FormContext = createContext();
 
@@ -7,7 +7,9 @@ export function FormContextProvider(props) {
   return (
     <FormContext.Provider
       value={{
-        data,
+        dataUsers,
+        dataMunicipios,
+        dataSeccion
       }}
     >
       {props.children}

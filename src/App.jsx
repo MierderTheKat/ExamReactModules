@@ -3,7 +3,7 @@ import FormView from "./components/Form/FormView";
 
 function App() {
   return (
-    <main className="container-sm border border-5 p-2">
+    <main className="container-sm p-2">
       <FormView></FormView>
     </main>
   );
