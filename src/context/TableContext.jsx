@@ -1,17 +1,17 @@
 import { createContext } from "react";
 
-export const FilterContext = createContext();
+export const TableContext = createContext();
 
-export function FilterContextProvider(props) {
+export function TableContextProvider(props) {
   const valor_1 = 10;
 
   return (
-    <FilterContext.Provider
+    <TableContext.Provider
       value={{
         valor_1,
       }}
     >
       {props.children}
-    </FilterContext.Provider>
+    </TableContext.Provider>
   );
 }

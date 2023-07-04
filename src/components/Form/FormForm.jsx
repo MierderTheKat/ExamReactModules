@@ -521,19 +521,17 @@ function FormForm() {
             </>
           )}
 
-          <div className="gap-3 d-flex justify-content-center mt-2">
+          <div className="gap-3 d-flex justify-content-center mt-3 mb-4">
             <ButtonForm
               name="Limpiar"
               todo={clearForm}
               color="danger"
               type="button"
-              extracss="mt-4"
             />
             <ButtonForm
               name="Guardar"
               todo={saveForm}
               color="primary"
-              extracss="mt-4"
             />
           </div>
         </form>

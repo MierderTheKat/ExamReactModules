@@ -13,7 +13,7 @@ export const ModalView = () => {
       <div className="row">
         <div className="col-md-6">
           <div
-            className="input-group mb-3 mt-5"
+            className="input-group mb-3 mt-1"
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#filterModal"
