@@ -1,7 +1,7 @@
-import { TableContextProvider } from "../context/TableContext";
+import { TableContextProvider } from "../../context/TableContext";
 import { Tools } from "react-bootstrap-icons";
-import AnimatedTransition from "./AnimatedTransition";
-import TabEx from "../components/Table/Graphics";
+import AnimatedTransition from "../AnimatedTransition";
+import TabEx from "../../components/Table/Graphics";
 
 function TableView() {
   return (

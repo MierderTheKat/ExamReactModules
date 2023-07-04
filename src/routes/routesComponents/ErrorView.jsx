@@ -1,5 +1,5 @@
 import { Octagon } from "react-bootstrap-icons";
-import AnimatedTransition from "./AnimatedTransition";
+import AnimatedTransition from "../AnimatedTransition";
 
 // En caso de tener una ruta mal, o cualquier error, se redirigira aqui para mostrarlo.
 function ErrorView() {

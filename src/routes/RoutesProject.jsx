@@ -5,9 +5,9 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import ErrorView from "./ErrorView";
-import FormView from "./FormView";
-import TableView from "./TableView";
+import ErrorView from "./routesComponents/ErrorView";
+import FormView from "./routesComponents/FormView";
+import TableView from "./routesComponents/TableView";
 // Ver rutas que pueden tener animaciones
 import { AnimatePresence } from "framer-motion";
 
@@ -18,9 +18,9 @@ function RoutesProject() {
     // Indicamos con el key pathname es el url en la linea de Routes
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        {/* Vista de Error*/}
+        {/* Vista de Error */}
         <Route path="*" element={<ErrorView />} />
-        {/* Todas las Vistas*/}
+        {/* Todas las Vistas */}
         <Route path="/" element={<FormView />} />
         <Route path="/table" element={<TableView />} />
       </Routes>
