@@ -1,15 +1,16 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
     <nav className="navbar sticky-top bg-body-tertiary">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+        <NavLink to="" className="navbar-brand">
           Exam Modules
-        </a>
+        </NavLink>
         <ul className="navbar-nav flex-row gap-2">
           <NavItem refa="table" name="Table" />
-          <NavItem refa="form" name="Form" />
+          <NavItem refa="" name="Form" />
         </ul>
       </div>
     </nav>
@@ -20,9 +21,9 @@ function Navbar() {
 const NavItem = ({ refa = "", name = "Link" }) => {
   return (
     <li className="nav-item">
-      <a className="nav-link btn btn-light px-2" href={`/${refa}`}>
+      <NavLink to={`/${refa}`} className="nav-link btn btn-light px-2">
         {name}
-      </a>
+      </NavLink>
     </li>
   );
 };
