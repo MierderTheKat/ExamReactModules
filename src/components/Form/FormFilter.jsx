@@ -1,7 +1,81 @@
 import { useContext, useState } from "react";
 import { FormContext } from "../../context/FormContext";
+import { TextForm, SelectForm, ButtonForm } from "../Form/FormForm";
+import { Search } from "react-bootstrap-icons";
 
-export const FilterUsersCard = () => {
+// Modal normal de Bootstrap
+export const ModalView = () => {
+  const { selectPerson } = useContext(FormContext);
+
+  return (
+    <>
+      {/* <!-- Boton para abrir modal --> */}
+      <div className="row">
+        <div className="col-md-6">
+          <div
+            className="input-group mb-3 mt-5"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#filterModal"
+          >
+            <TextForm
+              id="nameResponsable"
+              name="Responsable"
+              value={
+                selectPerson
+                  ? selectPerson.nombre +
+                    " " +
+                    selectPerson.apellidoPa +
+                    " " +
+                    selectPerson.apellidoMa
+                  : ""
+              }
+              required={true}
+              disabled={true}
+            />
+            <button className="btn btn-warning d-flex align-items-center px-3">
+              <Search size={25} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* <!-- Modal --> */}
+      <div
+        className="modal modal-xl fade"
+        id="filterModal"
+        tabIndex="-1"
+        aria-labelledby="filterModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h2
+                className="modal-title fs-4 w-100 text-center"
+                id="filterModalLabel"
+              >
+                Busqueda de Responsable
+              </h2>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <FilterUsersCard />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+// Información dentro del modal
+const FilterUsersCard = () => {
   // Trae los datos de los usuarios
   const { dataUsers, dataMunicipios, dataSeccion } = useContext(FormContext);
 
@@ -12,25 +86,20 @@ export const FilterUsersCard = () => {
   const [filteredResults, setFilteredResults] = useState([]);
 
   // Cambiar estados (dentro de otro componente)
-  const handleSearchResponsableChange = (value) => {
-    setSearchResponsable(value);
-  };
-  const handleSearchMunicipioChange = (value) => {
-    setSearchMunicipio(value);
-  };
-  const handleSearchSeccionChange = (value) => {
-    setsearchSeccion(value);
-  };
+  const handleSearchResponsableChange = (value) => setSearchResponsable(value);
+  const handleSearchMunicipioChange = (value) => setSearchMunicipio(value);
+  const handleSearchSeccionChange = (value) => setsearchSeccion(value);
 
   // Filtro de datos dependiendo de los filtros
   const filterResults = () => {
     if (searchResponsable || searchMunicipio || searchSeccion) {
       const filtered = dataUsers.filter((item) => {
-        const nameMatch = item.nombre
+        const nombre = item.nombre + " " + item.apellidoPa + item.apellidoMa;
+        const nameMatch = nombre
           .toLowerCase()
           .startsWith(searchResponsable.toLowerCase());
-        const municipalityMatch = item.municipio === searchMunicipio;
-        const sectionMatch = item.seccion === searchSeccion;
+        const municipalityMatch = item.domicilio.municipio === searchMunicipio;
+        const sectionMatch = item.domicilio.seccion === searchSeccion;
         // Validacion para cada situacion de uso del filtro
         if (searchResponsable && searchMunicipio && searchSeccion) {
           return nameMatch && municipalityMatch && sectionMatch;
@@ -66,131 +135,51 @@ export const FilterUsersCard = () => {
 
   return (
     <div className="row g-2">
-      <h2 className="text-center mb-2">Busqueda de Responsable</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
         className="row g-3 mb-2 needs-validation"
-        novalidate
+        noValidate
       >
-        <TextFilter
+        <TextForm
           id="nameFilter"
-          name="responsable"
+          name="Responsable"
           value={searchResponsable}
           change={handleSearchResponsableChange}
           large={4}
+          col_type="xl"
         />
-        <SelectFilter
+        <SelectForm
           id="municipalityFilter"
-          name="municipio"
+          name="Municipio"
           value={searchMunicipio}
           change={handleSearchMunicipioChange}
           options={dataMunicipios}
           large={4}
+          col_type="xl"
         />
-        <SelectFilter
+        <SelectForm
           id="sectionFilter"
-          name="section"
+          name="Sección"
           value={searchSeccion}
           change={handleSearchSeccionChange}
           options={dataSeccion}
           large={4}
+          col_type="xl"
         />
         <div className="gap-3 d-flex justify-content-center">
-          <ButtonFilter name="Buscar" todo={filterResults} color="primary" />
-          <ButtonFilter
+          <ButtonForm name="Buscar" todo={filterResults} color="primary" />
+          <ButtonForm
             name="Limpiar"
             todo={clearfilterResults}
             color="danger"
+            type="button"
           />
         </div>
       </form>
       <FilterContainerData data={filteredResults} />
     </div>
-  );
-};
-
-// Estructura de los tipo Text
-const TextFilter = ({
-  id = "",
-  name = "",
-  value = "",
-  change,
-  large = 4,
-  type = "text",
-  necessary = false,
-}) => {
-  return (
-    <div className={`form-floating col-sm-${large}`}>
-      <input
-        type={type}
-        className="form-control"
-        id={id}
-        value={value}
-        onChange={(e) => {
-          change(e.target.value);
-        }}
-        required={necessary}
-      />
-      <LabelFilter id={id} necessary={necessary} name={name} />
-    </div>
-  );
-};
-
-// Estructura de los tipo Select
-const SelectFilter = ({
-  id = "",
-  name = "",
-  value = "",
-  change,
-  options,
-  large = 4,
-  necessary = false,
-}) => {
-  return (
-    <div className={`form-floating col-sm-${large}`}>
-      <select
-        className="form-select"
-        id={id}
-        value={value}
-        onChange={(e) => {
-          change(e.target.value);
-        }}
-        required={necessary}
-      >
-        <option value="">Seleccionar {name}</option>
-        {options.map((mun) => (
-          <option key={mun.id} value={mun.nombre}>
-            {mun.nombre}
-          </option>
-        ))}
-      </select>
-      <LabelFilter id={id} necessary={necessary} name={name} />
-    </div>
-  );
-};
-
-// Saber si es necesario o no (agregar el * de obligatorio)
-const LabelFilter = ({ id, necessary, name }) => {
-  return (
-    <label htmlFor={id} className="text-capitalize ms-2">
-      {necessary && <span className="text-danger fw-bold">* </span>}
-      {name}
-    </label>
-  );
-};
-
-// Botones de Filtros
-const ButtonFilter = ({ name, todo, color }) => {
-  return (
-    <button
-      className={`btn btn-${color} py-2 px-4 fw-medium text-uppercase`}
-      type="submit"
-      onClick={todo}
-    >
-      {name}
-    </button>
   );
 };
 
@@ -205,22 +194,31 @@ const FilterContainerData = ({ data }) => {
 
 // Cards de los datos filtrados obtenidos
 const FilterUsersData = ({ data }) => {
+  const { selectPersonChange } = useContext(FormContext);
+
   return data.map((user) => (
-    <div key={user.id} className="card col-12 col-lg-5 text-start py-0 px-1 btn btn-light">
+    <button
+      key={user.id}
+      className="card col-12 col-lg-5 text-start py-0 px-1 btn btn-light"
+      onClick={() => {
+        selectPersonChange(user);
+      }}
+      data-bs-dismiss="modal"
+    >
       <div className="card-body text-secondary">
         <p className="card-text mb-2">
           Nombre:{" "}
           <span className="text-primary fw-bold text-uppercase">
-            {user.nombre}
+            {user.nombre + " " + user.apellidoPa + " " + user.apellidoMa}
           </span>
         </p>
-        <p className="card-text m-0">Celular: {user.celular}</p>
+        <p className="card-text m-0">Celular: {user.contacto.celular}</p>
         <p className="card-text m-0">Responsabilidad: {user.responsabilidad}</p>
-        <p className="card-text m-0">Municipio: {user.municipio}</p>
-        <p className="card-text m-0">Sección: {user.seccion}</p>
+        <p className="card-text m-0">Municipio: {user.domicilio.municipio}</p>
+        <p className="card-text m-0">Sección: {user.domicilio.seccion}</p>
       </div>
-    </div>
+    </button>
   ));
 };
 
-export default FilterUsersCard;
+export default ModalView;
