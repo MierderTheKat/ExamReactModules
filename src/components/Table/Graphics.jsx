@@ -1,51 +1,34 @@
-import * as XLSX from "xlsx";
+import { useContext } from "react";
+import { TableContext } from "../../context/TableContext";
 
-function TabEx() {
-  const handleFile = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      const data = new Uint8Array(e.target.result);
-      const workbook = XLSX.read(data, { type: "array" });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-      // Obtener encabezados de columna
-      const headers = jsonData.shift();
-
-      // Crear objeto para almacenar los datos por columnas
-      const columnData = {};
-      for (let i = 0; i < headers.length; i++) {
-        columnData[headers[i]] = [];
-      }
-
-      // Guardar los datos por columnas
-      for (const row of jsonData) {
-        for (let i = 0; i < headers.length; i++) {
-          columnData[headers[i]].push(row[i]);
-        }
-      }
-
-      // Exportar los datos en formato JSON
-      exportData(columnData);
-    };
-
-    reader.readAsArrayBuffer(file);
-  };
-
-  const exportData = (data) => {
-    const jsonString = JSON.stringify(data);
-    const blob = new Blob([jsonString], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "datos.json";
-    link.click();
-  };
-
-  return <input type="file" onChange={handleFile} />;
+function Graphics() {
+  const { tableData } = useContext(TableContext);
+  return (
+    <div className="row gap-3 justify-content-center mt-4">
+      <CardsGraphics name="Titulo 1"/>
+      <CardsGraphics name="Titulo 2"/>
+    </div>
+  );
 }
 
-export default TabEx;
+export default Graphics;
+
+function CardsGraphics({name=""}) {
+  return (
+    <div className="card col-md-12 col-lg-5">
+      <div className="card-body">
+        <h5 className="card-title">{name}</h5>
+        <div className="card-text">
+          <GraphicsTemplate/>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const GraphicsTemplate = ({dataTable}) => {
+  return (
+    <div>Plantilla de Grafica</div>
+  )
+}
+

@@ -1,14 +1,13 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
+import { tableData } from "../data/tableData";
 
 export const TableContext = createContext();
 
 export function TableContextProvider(props) {
-  const valor_1 = 10;
-
   return (
     <TableContext.Provider
       value={{
-        valor_1,
+        tableData,
       }}
     >
       {props.children}
