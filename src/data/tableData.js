@@ -36,7 +36,7 @@ export const dataRows = [
   },
   {
     id: 5,
-    nombre: "150",
+    nombre: "200",
   },
 ];
 

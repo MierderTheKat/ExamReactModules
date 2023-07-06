@@ -12,28 +12,34 @@ function TableTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [showPages, setShowPages] = useState(filterRow);
 
+  // Filtrar tabla por filas
   const filterRowChange = (value) => {
     setFilterRow(value);
     setShowPages(value);
     setCurrentPage(1);
   };
 
+  // Obtenemos los datos por cada fila
   useEffect(() => {
     setData(tableDataRow);
   }, []);
 
+  // Cambiamos el estado de los datos actuales de la tabla
+  // cuando avanzamos o retrocedemos de pagina
   useEffect(() => {
     const Last = currentPage * showPages;
     const First = Last - showPages;
     setCurrentData(data.slice(First, Last));
   }, [data, currentPage, showPages]);
 
+  // Retrodecemos de pagina
   const previousPageChange = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
+  // Avanzamos de pagina
   const nextPageChange = () => {
     const totalPages = Math.ceil(data.length / showPages);
     if (currentPage < totalPages) {
@@ -132,7 +138,7 @@ function ButtonExport({ name = "" }) {
   return (
     <button
       type="button"
-      className="btn btn-primary col-6 col-sm-5 col-md-4 col-lg-2 d-flex align-items-center justify-content-center"
+      className="btn btn-success col-6 col-sm-5 col-md-4 col-lg-2 d-flex align-items-center justify-content-center"
       onClick={exportExcel}
     >
       <FileEarmarkExcelFill />
@@ -171,6 +177,7 @@ const SelectForm = ({
 // Platilla de la tabla
 const TableTemplate = ({ currentData }) => {
   const { tableData } = useContext(TableContext);
+  // Filtramos los titulos de las tablas
   const title = Object.keys(tableData);
 
   return (
@@ -216,11 +223,13 @@ const TableTemplate = ({ currentData }) => {
   );
 };
 
+// Plantilla para cada dato dentro de la tabla
 export const RowsTable = ({ value, className = "" }) => {
+  // Se limitan los numeros decimales a 3
   if (typeof value === "number") {
     value = parseFloat(value.toFixed(3));
   }
-
+  // Se formatean los strings para tener letra capital
   const formattedValue =
     String(value).charAt(0).toUpperCase() +
     String(value).slice(1).toLowerCase();

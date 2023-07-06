@@ -1,13 +1,9 @@
 import { useContext, useState, useEffect } from "react";
 import { TableContext } from "../../context/TableContext";
 
+// Aun no se desarrolla este modulo, esta en proceso
+// Falta pensar en como es que se implementa la informacion en las graficas
 function TableFilter() {
-  return <CardFilter />;
-}
-
-export default TableFilter;
-
-const CardFilter = () => {
   const { dataView, tableData, currentData, currentDataChange } =
     useContext(TableContext);
   const [filterView, setFilterView] = useState(dataView[0].nombre);
@@ -35,17 +31,17 @@ const CardFilter = () => {
       const filteredData = tableData[filterView.toUpperCase()].map(
         (value, index) => ({
           REGIÓN: tableData["REGIÓN"][index],
-          MUNICIPIO:  tableData["MUNICIPIO"][index],
-          POLÍGONO:  tableData["POLÍGONO"][index],
-          SECCIÓN:  tableData["SECCIÓN"][index],
-          LNOM:  tableData["LNOM"][index],
-          META:  tableData["META"][index],
-          COMPROMISOS:  tableData["COMPROMISOS"][index],
-          AVANCE:  tableData["AVANCE"][index],
-          DETECTADOS:  tableData["DETECTADOS"][index],
-          OTROS:  tableData["OTROS"][index],
-          PORCENTAJE:  tableData["PORCENTAJE"][index],
-          EFECTIVIDAD:  tableData["EFECTIVIDAD"][index],
+          MUNICIPIO: tableData["MUNICIPIO"][index],
+          POLÍGONO: tableData["POLÍGONO"][index],
+          SECCIÓN: tableData["SECCIÓN"][index],
+          LNOM: tableData["LNOM"][index],
+          META: tableData["META"][index],
+          COMPROMISOS: tableData["COMPROMISOS"][index],
+          AVANCE: tableData["AVANCE"][index],
+          DETECTADOS: tableData["DETECTADOS"][index],
+          OTROS: tableData["OTROS"][index],
+          PORCENTAJE: tableData["PORCENTAJE"][index],
+          EFECTIVIDAD: tableData["EFECTIVIDAD"][index],
         })
       );
 
@@ -69,14 +65,8 @@ const CardFilter = () => {
           ...prevData.SECCIÓN,
           ...filteredData.map((data) => data.SECCIÓN),
         ],
-        LNOM: [
-          ...prevData.LNOM,
-          ...filteredData.map((data) => data.LNOM),
-        ],
-        META: [
-          ...prevData.META,
-          ...filteredData.map((data) => data.META),
-        ],
+        LNOM: [...prevData.LNOM, ...filteredData.map((data) => data.LNOM)],
+        META: [...prevData.META, ...filteredData.map((data) => data.META)],
         COMPROMISOS: [
           ...prevData.COMPROMISOS,
           ...filteredData.map((data) => data.COMPROMISOS),
@@ -89,10 +79,7 @@ const CardFilter = () => {
           ...prevData.DETECTADOS,
           ...filteredData.map((data) => data.DETECTADOS),
         ],
-        OTROS: [
-          ...prevData.OTROS,
-          ...filteredData.map((data) => data.OTROS),
-        ],
+        OTROS: [...prevData.OTROS, ...filteredData.map((data) => data.OTROS)],
         PORCENTAJE: [
           ...prevData.PORCENTAJE,
           ...filteredData.map((data) => data.PORCENTAJE),
@@ -102,10 +89,9 @@ const CardFilter = () => {
           ...filteredData.map((data) => data.EFECTIVIDAD),
         ],
       }));
-      currentDataChange(data)
-    }
-    else {
-      currentDataChange(tableData)
+      currentDataChange(data);
+    } else {
+      currentDataChange(tableData);
     }
   };
 
@@ -128,7 +114,9 @@ const CardFilter = () => {
       </div>
     </div>
   );
-};
+}
+
+export default TableFilter;
 
 // Estructura de los tipo Select
 export const SelectForm = ({
