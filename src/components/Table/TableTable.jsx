@@ -6,11 +6,11 @@ import * as XLSX from "xlsx";
 function TableTable() {
   const { dataRows, tableDataRow } = useContext(TableContext);
 
-  const [filterRow, setFilterRow] = useState(dataRows[0].nombre);
-  const [data, setData] = useState([]);
-  const [currentData, setCurrentData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [showPages, setShowPages] = useState(filterRow);
+  const [filterRow, setFilterRow] = useState(dataRows[0].nombre); // Valor dentro del select para cambiar cuantas filas se veran
+  const [showPages, setShowPages] = useState(filterRow); // Numero de filas que se veran en la tabla
+  const [data, setData] = useState([]); // Toda la informacion de las tablas
+  const [currentData, setCurrentData] = useState([]); // Información de cada pagina
+  const [currentPage, setCurrentPage] = useState(1);  // Numero de pagina actual
 
   // Filtrar tabla por filas
   const filterRowChange = (value) => {

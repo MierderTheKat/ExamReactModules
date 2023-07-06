@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { FormContext } from "../../context/FormContext";
-import { TextForm, SelectForm, ButtonForm } from "../Form/FormForm";
+import { TextForm, SelectForm, ButtonForm, NotFound } from "../Form/FormForm";
 import { Search } from "react-bootstrap-icons";
 
 // Modal normal de Bootstrap
@@ -178,7 +178,16 @@ const FilterUsersCard = () => {
           />
         </div>
       </form>
-      <FilterContainerData data={filteredResults} />
+      {filteredResults.length ? (
+        <FilterContainerData data={filteredResults} />
+      ) : (
+        <NotFound
+          name="No se encontro ningun resultado"
+          size={30}
+          align="center"
+          space="2"
+        />
+      )}
     </div>
   );
 };

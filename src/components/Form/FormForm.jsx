@@ -528,20 +528,11 @@ function FormForm() {
               color="danger"
               type="button"
             />
-            <ButtonForm
-              name="Guardar"
-              todo={saveForm}
-              color="primary"
-            />
+            <ButtonForm name="Guardar" todo={saveForm} color="primary" />
           </div>
         </form>
       ) : (
-        <div className="text-start d-flex align-items-center mt-4">
-          <ExclamationSquareFill size={50} className="text-secondary" />
-          <p className="h5 m-0 ms-3 text-secondary">
-            No haz seleccionado ningun responsable
-          </p>
-        </div>
+        <NotFound name="No haz seleccionado ningun responsable" size={50} />
       )}
     </>
   );
@@ -684,6 +675,20 @@ export const ButtonForm = ({
 // Estructura de los subtitulos del Form
 const TextDivider = ({ name }) => {
   return <div className="text-center fw-bold text-primary mt-3">{name}</div>;
+};
+
+export const NotFound = ({
+  name = "",
+  size = 30,
+  align = "start",
+  space = "3",
+}) => {
+  return (
+    <div className={`d-flex align-items-center justify-content-${align} my-4`}>
+      <ExclamationSquareFill size={size} className="text-secondary" />
+      <p className={`h5 m-0 ms-${space} text-secondary`}>{name}</p>
+    </div>
+  );
 };
 
 export default FormForm;
