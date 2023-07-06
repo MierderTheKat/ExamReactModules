@@ -1,14 +1,16 @@
 import { TableContextProvider } from "../../context/TableContext";
 import AnimatedTransition from "../AnimatedTransition";
-import Graphics from "../../components/Table/Graphics";
-import Table from "../../components/Table/Table";
+import TableFilter from "../../components/Table/TableFilter";
+import TableGraphics from "../../components/Table/TableGraphics";
+import TableTable from "../../components/Table/TableTable";
 
 function TableView() {
   return (
     <AnimatedTransition>
       <TableContextProvider>
-        <Graphics/>
-        <Table/>
+        <TableFilter />
+        <TableGraphics />
+        <TableTable />
       </TableContextProvider>
     </AnimatedTransition>
   );
